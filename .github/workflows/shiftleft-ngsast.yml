@@ -24,8 +24,10 @@ jobs:
       run: dotnet build GoatlyCore.sln
     - name: Analyze with NG SAST
       run: |
-        dotnet tool install --global CycloneDX
-        dotnet CycloneDX -o . --disable-github-licenses --disable-package-restore GoatlyCore.sln
+        # dotnet tool install --global CycloneDX
+        # dotnet CycloneDX -o . --disable-github-licenses --disable-package-restore GoatlyCore.sln
+        npm install -g @appthreat/cdxgen
+        cdxgen -r .
         cat bom.xml
         .\sl analyze --wait --verbose --app Goatly50 --bomupload bom.xml --tag branch="${{ github.head_ref }}" --csharp --dotnet --cpg GoatlyCore.sln
       env:
