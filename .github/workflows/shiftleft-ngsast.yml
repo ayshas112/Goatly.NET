@@ -25,7 +25,7 @@ jobs:
     - name: Analyze with NG SAST
       run: |
         dotnet tool install --global CycloneDX
-        dotnet CycloneDX -o . --disable-github-licenses --disable-package-restore .
+        dotnet CycloneDX -o . --disable-github-licenses --disable-package-restore GoatlyCore.sln
         cat bom.xml
         .\sl analyze --wait --verbose --app Goatly50 --bomupload bom.xml --tag branch="${{ github.head_ref }}" --csharp --dotnet --cpg GoatlyCore.sln
       env:
